@@ -1,11 +1,11 @@
-name: Build Docker Image
+name: DevSecOps Pipeline
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build:
+  security:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,3 +14,8 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devsecops-demo .
+
+      - name: Scan Docker image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: devsecops-demo
