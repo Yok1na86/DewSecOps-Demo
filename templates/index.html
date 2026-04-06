@@ -1,0 +1,78 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>My Site</title>
+
+<style>
+html, body{
+height:100%;
+margin:0;
+}
+
+body{
+background:url("{{ url_for('static', filename='img/Hacked_By_Yokina.png') }}");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+color:#00ff00;
+font-family:monospace;
+}
+
+
+video{
+position:fixed;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+object-fit:cover;
+z-index:-1;
+}
+
+
+#typing{
+position:absolute;
+top:75%;
+left:50%;
+transform:translate(-50%, -50%);
+font-size:40px;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<h1 id="typing"></h1>
+
+<script>
+
+const text = "Hacked by Yokina!";
+let i = 0;
+
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 80);
+  }
+}
+
+typeWriter();
+
+</script>
+
+
+
+</body>
+</html>
