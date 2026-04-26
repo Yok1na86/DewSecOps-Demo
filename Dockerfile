@@ -1,38 +1,20 @@
 
-FROM python:3.11-slim AS builder
+
+
+
+
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get upgrade -y \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 
-RUN pip install --user --no-cache-dir -r requirements.txt
+RUN python3 -m pip install --upgrade pip \
+    && python3 -m pip install --no-cache-dir -r requirements.txt
 
-
-FROM python:3.11-slim
-
-WORKDIR /app
-
-RUN useradd -m appuser
-
-
-COPY --from=builder /root/.local /home/appuser/.local
 COPY . .
 
-
-RUN chown -R appuser:appuser /app
-
-USER appuser
-
-
-ENV PATH=/home/appuser/.local/bin:$PATH
-
-
-EXPOSE 5000
-
-CMD ["python", "app.py"]
-
+CMD ["python3", "app.py"]
